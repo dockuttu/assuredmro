@@ -9,6 +9,9 @@ echo "==> Pulling latest ($BRANCH)"
 git fetch origin --quiet || { echo "!! git fetch failed — aborting, live site untouched"; exit 1; }
 git reset --hard "origin/$BRANCH"
 echo "    now at: $(git rev-parse --short HEAD) — $(git log -1 --pretty=%s)"
+echo "==> ABIM board-certification badge in every footer"
+python3 abim_badge.py site
+
 mkdir -p "$LIVE"
 echo "==> Promoting to live ($LIVE/site)"
 rm -rf "$LIVE/site.new"; cp -a site "$LIVE/site.new"
